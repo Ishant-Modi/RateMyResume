@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Resume Parser</title>
+  </head>
+  <body>
+    <div class="relative isolate overflow-hidden bg-gray-900">
+      <svg
+        class="absolute inset-0 -z-10 h-full w-full stroke-white/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
+        aria-hidden="true"
+      >
+        <defs>
+          <pattern
+            id="983e3e4c-de6d-4c3f-8d64-b9761d1534cc"
+            width="200"
+            height="200"
+            x="50%"
+            y="-1"
+            patternUnits="userSpaceOnUse"
+          >
+            <path d="M.5 200V.5H200" fill="none" />
+          </pattern>
+        </defs>
+        <svg x="50%" y="-1" class="overflow-visible fill-gray-800/20">
+          <path
+            d="M-200 0h201v201h-201Z M600 0h201v201h-201Z M-400 600h201v201h-201Z M200 800h201v201h-201Z"
+            stroke-width="0"
+          />
+        </svg>
+        <rect
+          width="100%"
+          height="100%"
+          stroke-width="0"
+          fill="url(#983e3e4c-de6d-4c3f-8d64-b9761d1534cc)"
+        />
+      </svg>
+      <div
+        class="absolute left-[calc(50%-4rem)] top-10 -z-10 transform-gpu blur-3xl sm:left-[calc(50%-18rem)] lg:left-48 lg:top-[calc(50%-30rem)] xl:left-[calc(50%-24rem)]"
+        aria-hidden="true"
+      >
+        <div
+          class="aspect-[1108/632] w-[69.25rem] bg-gradient-to-r from-[#80caff] to-[#4f46e5] opacity-20"
+          style="
+            clip-path: polygon(
+              73.6% 51.7%,
+              91.7% 11.8%,
+              100% 46.4%,
+              97.4% 82.2%,
+              92.5% 84.9%,
+              75.7% 64%,
+              55.3% 47.5%,
+              46.5% 49.4%,
+              45% 62.9%,
+              50.3% 87.2%,
+              21.3% 64.1%,
+              0.1% 100%,
+              5.4% 51.1%,
+              21.4% 63.9%,
+              58.9% 0.2%,
+              73.6% 51.7%
+            );
+          "
+        ></div>
+      </div>
+      <div
+        class="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:pb-32 lg:flex lg:px-8 lg:py-40"
+      >
+        <div
+          class="mx-auto max-w-2xl flex-shrink-0 lg:mx-0 lg:max-w-xl lg:pt-8"
+        >
+          <img
+            class="h-11"
+            src="https://res.cloudinary.com/dtsuvx8dz/image/upload/v1706986565/hqatxpsjdg3zeql20jfe.png"
+            alt="Your Company"
+          />
+          <div class="mt-24 sm:mt-32 lg:mt-16">
+            <a href="#" class="inline-flex space-x-6">
+              <span
+                class="rounded-full bg-blue-500/10 px-3 py-1 text-sm font-semibold leading-6 text-blue-400 ring-1 ring-inset ring-blue-500/20"
+                >What's new</span
+              >
+              <span
+                class="inline-flex items-center space-x-2 text-sm font-medium leading-6 text-gray-300"
+              >
+                <span>Just shipped v1.0</span>
+                <svg
+                  class="h-5 w-5 text-gray-500"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </a>
+          </div>
+          <h1
+            class="mt-10 text-4xl font-bold tracking-tight text-white sm:text-5xl"
+          >
+            Revolutionize Your Recruitment with Next-Gen Resume Parsing
+          </h1>
+          <p class="mt-6 text-lg leading-8 text-gray-300">
+            Unlock the potential of every application with our advanced resume
+            parser, designed to enhance the speed and accuracy of your hiring
+            decisions.
+          </p>
+
+          {% if error %}
+          <div class="mt-6 rounded-md bg-red-50 p-4 border border-red-200">
+            <div class="flex">
+              <div class="flex-shrink-0">
+                <svg
+                  class="h-5 w-5 text-red-400"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </div>
+              <div class="ml-3">
+                <h3 class="text-sm font-medium text-red-800">Error</h3>
+                <div class="mt-2 text-sm text-red-700">
+                  <p>{{ error }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+          <div class="mt-10 flex items-center gap-x-6">
+            <form
+              action="/process"
+              method="post"
+              enctype="multipart/form-data"
+              class="w-full max-w-3xl"
+            >
+              <div class="space-y-6">
+                <!-- File Upload Section -->
+                <div class="flex flex-col sm:flex-row gap-4 items-center">
+                  <input
+                    type="file"
+                    name="pdf_doc"
+                    id="pdf_doc"
+                    accept=".pdf"
+                    required
+                    class="drop-shadow-md bg-white/10 font-semibold leading-6 text-gray-900 border border-blue-300 py-2 px-4 rounded-2xl block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-400 hover:file:bg-blue-100"
+                  />
+                </div>
+
+                <!-- Job Description Section -->
+                <div class="w-full">
+                  <label
+                    for="job_description"
+                    class="block text-sm font-medium text-gray-300 mb-2"
+                  >
+                    Job Description (Optional) - Get match score!
+                  </label>
+                  <textarea
+                    name="job_description"
+                    id="job_description"
+                    rows="8"
+                    placeholder="Paste the job description here to see how well the resume matches the role..."
+                    class="w-full px-4 py-3 bg-white/10 border border-blue-300/50 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-y"
+                  ></textarea>
+                  <p class="mt-2 text-xs text-gray-400">
+                    💡 Tip: Include the job description to get a detailed match
+                    score and insights!
+                  </p>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="flex justify-center">
+                  <button
+                    type="submit"
+                    class="bg-blue-500 px-12 py-3 rounded-2xl text-base font-semibold text-white shadow-lg hover:bg-blue-400 transform hover:scale-105 transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                  >
+                    🚀 Analyze Resume
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div
+          class="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:ml-10 lg:mr-0 lg:mt-40 lg:max-w-none lg:flex-none xl:ml-32"
+        >
+          <div class="max-w-3xl flex-none sm:max-w-5xl lg:max-w-none">
+            <img
+              src="https://res.cloudinary.com/dtsuvx8dz/image/upload/v1716357077/o1imiun4wwcpia9uucgs.gif"
+              alt="App screenshot"
+              width="2432"
+              height="1442"
+              class="w-[15rem] rounded-md bg-white/5 shadow-2xl ring-1 ring-white/10"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="w-screen h-full pb-8">
+        <div class="flex flex-col justify-center items-center text-white">
+          <div class="w-full max-w-7xl px-4">
+            <!-- Job Match Score Section -->
+            {%if job_match %}
+            <div
+              class="mb-8 bg-gradient-to-r from-purple-900/50 to-blue-900/50 border border-purple-500/30 rounded-lg p-8 shadow-2xl"
+            >
+              <h2
+                class="text-3xl font-bold text-purple-300 mb-6 flex items-center"
+              >
+                <svg
+                  class="w-8 h-8 mr-3"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+                  <path
+                    fill-rule="evenodd"
+                    d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                Job Match Analysis
+              </h2>
+
+              <!-- Overall Score -->
+              <div class="mb-6">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-lg font-semibold text-gray-300"
+                    >Overall Match Score</span
+                  >
+                  <span class="text-4xl font-bold text-white"
+                    >{{ job_match.overall_match_score }}%</span
+                  >
+                </div>
+                <div
+                  class="w-full bg-gray-700 rounded-full h-6 overflow-hidden"
+                >
+                  <div
+                    class="h-full flex transition-all duration-500"
+                    style="width: {{ job_match.overall_match_score }}%"
+                  >
+                    <div
+                      class="flex-1"
+                      style="
+                        background: linear-gradient(
+                          90deg,
+                          {% if job_match.overall_match_score < 50 %}#ef4444{% elif
+                            job_match.overall_match_score < 75 %}#f59e0b{% else %}#10b981{%
+                            endif %},
+                          {% if job_match.overall_match_score < 50 %}#dc2626{% elif
+                            job_match.overall_match_score < 75 %}#d97706{% else %}#059669{%
+                            endif %}
+                        );
+                      "
+                    ></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Category Scores -->
+              {% if job_match.category_scores %}
+              <div
+                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6"
+              >
+                {% if job_match.category_scores.skills_match is defined %}
+                <div class="bg-gray-800/50 rounded-lg p-4">
+                  <div class="text-sm text-gray-400 mb-1">Skills Match</div>
+                  <div class="text-2xl font-bold text-blue-400">
+                    {{ job_match.category_scores.skills_match }}%
+                  </div>
+                </div>
+                {% endif %} {% if job_match.category_scores.experience_match is
+                defined %}
+                <div class="bg-gray-800/50 rounded-lg p-4">
+                  <div class="text-sm text-gray-400 mb-1">Experience Match</div>
+                  <div class="text-2xl font-bold text-green-400">
+                    {{ job_match.category_scores.experience_match }}%
+                  </div>
+                </div>
+                {% endif %} {% if job_match.category_scores.education_match is
+                defined %}
+                <div class="bg-gray-800/50 rounded-lg p-4">
+                  <div class="text-sm text-gray-400 mb-1">Education Match</div>
+                  <div class="text-2xl font-bold text-yellow-400">
+                    {{ job_match.category_scores.education_match }}%
+                  </div>
+                </div>
+                {% endif %} {% if job_match.category_scores.keyword_match is
+                defined %}
+                <div class="bg-gray-800/50 rounded-lg p-4">
+                  <div class="text-sm text-gray-400 mb-1">Keyword Match</div>
+                  <div class="text-2xl font-bold text-purple-400">
+                    {{ job_match.category_scores.keyword_match }}%
+                  </div>
+                </div>
+                {% endif %}
+              </div>
+              {% endif %}
+
+              <!-- Summary -->
+              {% if job_match.summary %}
+              <div class="bg-gray-800/50 rounded-lg p-6 mb-6">
+                <h3 class="text-lg font-semibold text-purple-300 mb-3">
+                  📝 Summary
+                </h3>
+                <p class="text-gray-200 leading-relaxed">
+                  {{ job_match.summary }}
+                </p>
+              </div>
+              {% endif %}
+
+              <!-- Strengths and Recommendations in 2 columns -->
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                <!-- Matching Skills -->
+                {% if job_match.matching_skills %}
+                <div class="bg-gray-800/50 rounded-lg p-6">
+                  <h3
+                    class="text-lg font-semibold text-green-400 mb-3 flex items-center"
+                  >
+                    <svg
+                      class="w-5 h-5 mr-2"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                    Matching Skills
+                  </h3>
+                  <ul class="space-y-2">
+                    {% for skill in job_match.matching_skills %}
+                    <li class="flex items-start">
+                      <span class="text-green-400 mr-2">✓</span>
+                      <span class="text-gray-200">{{ skill }}</span>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+                {% endif %}
+
+                <!-- Missing Skills -->
+                {% if job_match.missing_skills %}
+                <div class="bg-gray-800/50 rounded-lg p-6">
+                  <h3
+                    class="text-lg font-semibold text-orange-400 mb-3 flex items-center"
+                  >
+                    <svg
+                      class="w-5 h-5 mr-2"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                    Skills to Add
+                  </h3>
+                  <ul class="space-y-2">
+                    {% for skill in job_match.missing_skills %}
+                    <li class="flex items-start">
+                      <span class="text-orange-400 mr-2">!</span>
+                      <span class="text-gray-200">{{ skill }}</span>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+                {% endif %}
+              </div>
+
+              <!-- Recommendations -->
+              {% if job_match.recommendations %}
+              <div
+                class="bg-blue-900/30 border border-blue-500/30 rounded-lg p-6"
+              >
+                <h3
+                  class="text-lg font-semibold text-blue-300 mb-4 flex items-center"
+                >
+                  <svg
+                    class="w-5 h-5 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM5 10a1 1 0 01-1 1H3a1 1 0 110-2h1a1 1 0 011 1zM8 16v-1h4v1a2 2 0 11-4 0zM12 14c.015-.34.208-.646.477-.859a4 4 0 10-4.954 0c.27.213.462.519.476.859h4.002z"
+                    />
+                  </svg>
+                  Recommendations to Improve Match
+                </h3>
+                <ul class="space-y-3">
+                  {% for rec in job_match.recommendations %}
+                  <li class="flex items-start">
+                    <span class="text-blue-400 mr-2 mt-1">💡</span>
+                    <span class="text-gray-200">{{ rec }}</span>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </div>
+              {% endif %}
+            </div>
+            {% endif %}
+
+            <!-- ATS Score Section -->
+            {% if ats_score %}
+            <div
+              class="mb-8 bg-gradient-to-r from-green-900/50 to-teal-900/50 border border-green-500/30 rounded-lg p-8 shadow-2xl"
+            >
+              <h2
+                class="text-3xl font-bold text-green-300 mb-6 flex items-center"
+              >
+                <svg
+                  class="w-8 h-8 mr-3"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                ATS Compatibility Score
+              </h2>
+
+              <!-- Overall ATS Score -->
+              <div class="mb-6">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-lg font-semibold text-gray-300"
+                    >Overall ATS Score</span
+                  >
+                  <span class="text-4xl font-bold text-white"
+                    >{{ ats_score.overall_ats_score }}%</span
+                  >
+                </div>
+                <div
+                  class="w-full bg-gray-700 rounded-full h-6 overflow-hidden"
+                >
+                  <div
+                    class="h-full flex transition-all duration-500"
+                    style="width: {{ ats_score.overall_ats_score }}%"
+                  >
+                    <div
+                      class="flex-1"
+                      style="
+                        background: linear-gradient(
+                          90deg,
+                          {% if ats_score.overall_ats_score < 50 %}#ef4444{% elif
+                            ats_score.overall_ats_score < 75 %}#f59e0b{% else %}#10b981{%
+                            endif %},
+                          {% if ats_score.overall_ats_score < 50 %}#dc2626{% elif
+                            ats_score.overall_ats_score < 75 %}#d97706{% else %}#059669{%
+                            endif %}
+                        );
+                      "
+                    ></div>
+                  </div>
+                </div>
+                <p class="text-sm text-gray-400 mt-2">
+                  {% if ats_score.overall_ats_score >= 80 %} Excellent! Your
+                  resume is highly ATS-compatible. {% elif
+                  ats_score.overall_ats_score >= 60 %} Good! Your resume should
+                  pass most ATS systems with some improvements. {% else %} Needs
+                  Work. Your resume may be filtered out by ATS systems. {% endif
+                  %}
+                </p>
+              </div>
+
+              <!-- Category Scores Grid -->
+              {% if ats_score.category_scores %}
+              <div
+                class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-6"
+              >
+                {% if ats_score.category_scores.contact_info is defined %}
+                <div class="bg-gray-800/50 rounded-lg p-4">
+                  <div class="text-xs text-gray-400 mb-1">Contact Info</div>
+                  <div class="text-xl font-bold text-cyan-400">
+                    {{ ats_score.category_scores.contact_info }}%
+                  </div>
+                </div>
+                {% endif %} {% if ats_score.category_scores.keyword_density is
+                defined %}
+                <div class="bg-gray-800/50 rounded-lg p-4">
+                  <div class="text-xs text-gray-400 mb-1">Keyword Density</div>
+                  <div class="text-xl font-bold text-blue-400">
+                    {{ ats_score.category_scores.keyword_density }}%
+                  </div>
+                </div>
+                {% endif %} {% if ats_score.category_scores.format_compatibility
+                is defined %}
+                <div class="bg-gray-800/50 rounded-lg p-4">
+                  <div class="text-xs text-gray-400 mb-1">Format</div>
+                  <div class="text-xl font-bold text-green-400">
+                    {{ ats_score.category_scores.format_compatibility }}%
+                  </div>
+                </div>
+                {% endif %} {% if ats_score.category_scores.section_organization
+                is defined %}
+                <div class="bg-gray-800/50 rounded-lg p-4">
+                  <div class="text-xs text-gray-400 mb-1">Organization</div>
+                  <div class="text-xl font-bold text-yellow-400">
+                    {{ ats_score.category_scores.section_organization }}%
+                  </div>
+                </div>
+                {% endif %} {% if
+                ats_score.category_scores.experience_quantification is defined
+                %}
+                <div class="bg-gray-800/50 rounded-lg p-4">
+                  <div class="text-xs text-gray-400 mb-1">Quantification</div>
+                  <div class="text-xl font-bold text-purple-400">
+                    {{ ats_score.category_scores.experience_quantification }}%
+                  </div>
+                </div>
+                {% endif %} {% if ats_score.category_scores.education_details is
+                defined %}
+                <div class="bg-gray-800/50 rounded-lg p-4">
+                  <div class="text-xs text-gray-400 mb-1">Education</div>
+                  <div class="text-xl font-bold text-pink-400">
+                    {{ ats_score.category_scores.education_details }}%
+                  </div>
+                </div>
+                {% endif %} {% if ats_score.category_scores.skills_presence is
+                defined %}
+                <div class="bg-gray-800/50 rounded-lg p-4">
+                  <div class="text-xs text-gray-400 mb-1">Skills</div>
+                  <div class="text-xl font-bold text-indigo-400">
+                    {{ ats_score.category_scores.skills_presence }}%
+                  </div>
+                </div>
+                {% endif %}
+              </div>
+              {% endif %}
+
+              <!-- Summary -->
+              {% if ats_score.summary %}
+              <div class="bg-gray-800/50 rounded-lg p-6 mb-6">
+                <h3 class="text-lg font-semibold text-green-300 mb-3">
+                  📊 Summary
+                </h3>
+                <p class="text-gray-200 leading-relaxed">
+                  {{ ats_score.summary }}
+                </p>
+              </div>
+              {% endif %}
+
+              <!-- Strengths and Weaknesses in 2 columns -->
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                <!-- Strengths -->
+                {% if ats_score.strengths %}
+                <div class="bg-gray-800/50 rounded-lg p-6">
+                  <h3
+                    class="text-lg font-semibold text-green-400 mb-3 flex items-center"
+                  >
+                    <svg
+                      class="w-5 h-5 mr-2"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                    Strengths
+                  </h3>
+                  <ul class="space-y-2">
+                    {% for strength in ats_score.strengths %}
+                    <li class="flex items-start">
+                      <span class="text-green-400 mr-2 mt-1">✓</span>
+                      <span class="text-gray-200">{{ strength }}</span>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+                {% endif %}
+
+                <!-- Weaknesses -->
+                {% if ats_score.weaknesses %}
+                <div class="bg-gray-800/50 rounded-lg p-6">
+                  <h3
+                    class="text-lg font-semibold text-red-400 mb-3 flex items-center"
+                  >
+                    <svg
+                      class="w-5 h-5 mr-2"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                    Areas to Improve
+                  </h3>
+                  <ul class="space-y-2">
+                    {% for weakness in ats_score.weaknesses %}
+                    <li class="flex items-start">
+                      <span class="text-red-400 mr-2 mt-1">✗</span>
+                      <span class="text-gray-200">{{ weakness }}</span>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+                {% endif %}
+              </div>
+
+              <!-- Keyword Analysis -->
+              {% if ats_score.keyword_analysis %}
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                {% if ats_score.keyword_analysis.present_keywords %}
+                <div class="bg-gray-800/50 rounded-lg p-6">
+                  <h3 class="text-lg font-semibold text-blue-400 mb-3">
+                    📌 Present Keywords
+                  </h3>
+                  <div class="flex flex-wrap gap-2">
+                    {% for keyword in
+                    ats_score.keyword_analysis.present_keywords %}
+                    <span
+                      class="px-3 py-1 bg-blue-900/50 text-blue-300 rounded-full text-sm"
+                      >{{ keyword }}</span
+                    >
+                    {% endfor %}
+                  </div>
+                </div>
+                {% endif %} {% if ats_score.keyword_analysis.missing_keywords %}
+                <div class="bg-gray-800/50 rounded-lg p-6">
+                  <h3 class="text-lg font-semibold text-orange-400 mb-3">
+                    🔍 Suggested Keywords
+                  </h3>
+                  <div class="flex flex-wrap gap-2">
+                    {% for keyword in
+                    ats_score.keyword_analysis.missing_keywords %}
+                    <span
+                      class="px-3 py-1 bg-orange-900/50 text-orange-300 rounded-full text-sm"
+                      >{{ keyword }}</span
+                    >
+                    {% endfor %}
+                  </div>
+                </div>
+                {% endif %}
+              </div>
+              {% endif %}
+
+              <!-- Format Issues -->
+              {% if ats_score.format_issues and ats_score.format_issues|length >
+              0 %}
+              <div
+                class="bg-yellow-900/20 border border-yellow-500/30 rounded-lg p-6 mb-6"
+              >
+                <h3
+                  class="text-lg font-semibold text-yellow-300 mb-3 flex items-center"
+                >
+                  <svg
+                    class="w-5 h-5 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  Format Issues Detected
+                </h3>
+                <ul class="space-y-2">
+                  {% for issue in ats_score.format_issues %}
+                  <li class="flex items-start">
+                    <span class="text-yellow-400 mr-2 mt-1">⚠</span>
+                    <span class="text-gray-200">{{ issue }}</span>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </div>
+              {% endif %}
+
+              <!-- Improvement Suggestions -->
+              {% if ats_score.improvement_suggestions %}
+              <div
+                class="bg-teal-900/30 border border-teal-500/30 rounded-lg p-6"
+              >
+                <h3
+                  class="text-lg font-semibold text-teal-300 mb-4 flex items-center"
+                >
+                  <svg
+                    class="w-5 h-5 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM5 10a1 1 0 01-1 1H3a1 1 0 110-2h1a1 1 0 011 1zM8 16v-1h4v1a2 2 0 11-4 0zM12 14c.015-.34.208-.646.477-.859a4 4 0 10-4.954 0c.27.213.462.519.476.859h4.002z"
+                    />
+                  </svg>
+                  How to Improve Your ATS Score
+                </h3>
+                <ul class="space-y-3">
+                  {% for suggestion in ats_score.improvement_suggestions %}
+                  <li class="flex items-start">
+                    <span class="text-teal-400 mr-2 mt-1">💡</span>
+                    <span class="text-gray-200">{{ suggestion }}</span>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </div>
+              {% endif %}
+            </div>
+            {% endif %}
+
+            <!-- Resume Analysis Results -->
+            <div
+              id="dictionaryValues"
+              class="border border-1 border-white/20 bg-gray-800/50 rounded-lg p-8"
+            ></div>
+            {%if data %}
+            <script>
+              function displayDictionaryValues(data) {
+                  var container = document.getElementById("dictionaryValues");
+                  var html = '<div class="space-y-6">';
+                  html += '<h2 class="text-3xl font-bold text-blue-400 mb-6">📄 Resume Analysis Results</h2>';
+
+                  // Personal Information Section
+                  if (data.full_name || data.email || data.phone) {
+                      html += '<div class="bg-gray-700/50 rounded-lg p-6 mb-4">';
+                      html += '<h3 class="text-xl font-semibold text-blue-300 mb-4 flex items-center"><svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"/></svg>Personal Information</h3>';
+                      html += '<div class="grid grid-cols-1 md:grid-cols-2 gap-3">';
+                      if (data.full_name) html += '<p><span class="text-gray-400">Name:</span> <span class="text-white font-medium">' + data.full_name + '</span></p>';
+                      if (data.email) html += '<p><span class="text-gray-400">Email:</span> <span class="text-white font-medium">' + data.email + '</span></p>';
+                      if (data.phone) html += '<p><span class="text-gray-400">Phone:</span> <span class="text-white font-medium">' + data.phone + '</span></p>';
+                      if (data.location) html += '<p><span class="text-gray-400">Location:</span> <span class="text-white font-medium">' + formatValue(data.location) + '</span></p>';
+                      if (data.linkedin_url) html += '<p><span class="text-gray-400">LinkedIn:</span> <a href="' + data.linkedin_url + '" target="_blank" class="text-blue-400 hover:underline">' + data.linkedin_url + '</a></p>';
+                      if (data.github_url) html += '<p><span class="text-gray-400">GitHub:</span> <a href="' + data.github_url + '" target="_blank" class="text-blue-400 hover:underline">' + data.github_url + '</a></p>';
+                      if (data.portfolio_url) html += '<p><span class="text-gray-400">Portfolio:</span> <a href="' + data.portfolio_url + '" target="_blank" class="text-blue-400 hover:underline">' + data.portfolio_url + '</a></p>';
+                      html += '</div></div>';
+                  }
+
+                  // Professional Summary
+                  if (data.summary || data.professional_summary) {
+                      html += '<div class="bg-gray-700/50 rounded-lg p-6 mb-4">';
+                      html += '<h3 class="text-xl font-semibold text-blue-300 mb-4">📝 Professional Summary</h3>';
+                      html += '<p class="text-gray-200 leading-relaxed">' + (data.summary || data.professional_summary) + '</p>';
+                      html += '</div>';
+                  }
+
+                  // Education
+                  if (data.education && data.education.length > 0) {
+                      html += '<div class="bg-gray-700/50 rounded-lg p-6 mb-4">';
+                      html += '<h3 class="text-xl font-semibold text-blue-300 mb-4">🎓 Education</h3>';
+                      html += formatArray(data.education);
+                      html += '</div>';
+                  }
+
+                  // Work Experience
+                  if (data.work_experience && data.work_experience.length > 0) {
+                      html += '<div class="bg-gray-700/50 rounded-lg p-6 mb-4">';
+                      html += '<h3 class="text-xl font-semibold text-blue-300 mb-4">💼 Work Experience</h3>';
+                      html += formatArray(data.work_experience);
+                      html += '</div>';
+                  }
+
+                  // Projects
+                  if (data.projects && data.projects.length > 0) {
+                      html += '<div class="bg-gray-700/50 rounded-lg p-6 mb-4">';
+                      html += '<h3 class="text-xl font-semibold text-blue-300 mb-4">🚀 Projects</h3>';
+                      html += formatArray(data.projects);
+                      html += '</div>';
+                  }
+
+                  // Leadership Roles
+                  if (data.leadership_roles && data.leadership_roles.length > 0) {
+                      html += '<div class="bg-gray-700/50 rounded-lg p-6 mb-4">';
+                      html += '<h3 class="text-xl font-semibold text-blue-300 mb-4">👑 Leadership Roles</h3>';
+                      html += formatArray(data.leadership_roles);
+                      html += '</div>';
+                  }
+
+                  // Volunteering
+                  if (data.volunteering_experience && data.volunteering_experience.length > 0) {
+                      html += '<div class="bg-gray-700/50 rounded-lg p-6 mb-4">';
+                      html += '<h3 class="text-xl font-semibold text-blue-300 mb-4">🤝 Volunteering Experience</h3>';
+                      html += formatArray(data.volunteering_experience);
+                      html += '</div>';
+                  }
+
+                  // Technical Skills
+                  if (data.technical_skills) {
+                      html += '<div class="bg-gray-700/50 rounded-lg p-6 mb-4">';
+                      html += '<h3 class="text-xl font-semibold text-blue-300 mb-4">💻 Technical Skills</h3>';
+                      html += '<div class="grid grid-cols-1 md:grid-cols-2 gap-3">';
+                      for (var key in data.technical_skills) {
+                          if (data.technical_skills[key] && data.technical_skills[key].length > 0) {
+                              html += '<div><span class="text-gray-400">' + formatKey(key) + ':</span> <span class="text-white">' + formatValue(data.technical_skills[key]) + '</span></div>';
+                          }
+                      }
+                      html += '</div></div>';
+                  }
+
+                  // Soft Skills
+                  if (data.soft_skills && data.soft_skills.length > 0) {
+                      html += '<div class="bg-gray-700/50 rounded-lg p-6 mb-4">';
+                      html += '<h3 class="text-xl font-semibold text-blue-300 mb-4">🎯 Soft Skills</h3>';
+                      html += '<div class="flex flex-wrap gap-2">';
+                      var skills = Array.isArray(data.soft_skills) ? data.soft_skills : [data.soft_skills];
+                      skills.forEach(function(skill) {
+                          html += '<span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-sm">' + skill + '</span>';
+                      });
+                      html += '</div></div>';
+                  }
+
+                  // Certifications
+                  if (data.certifications && data.certifications.length > 0) {
+                      html += '<div class="bg-gray-700/50 rounded-lg p-6 mb-4">';
+                      html += '<h3 class="text-xl font-semibold text-blue-300 mb-4">📜 Certifications</h3>';
+                      html += formatArray(data.certifications);
+                      html += '</div>';
+                  }
+
+                  // Awards
+                  if (data.awards_and_achievements && data.awards_and_achievements.length > 0) {
+                      html += '<div class="bg-gray-700/50 rounded-lg p-6 mb-4">';
+                      html += '<h3 class="text-xl font-semibold text-blue-300 mb-4">🏆 Awards & Achievements</h3>';
+                      html += formatArray(data.awards_and_achievements);
+                      html += '</div>';
+                  }
+
+                  // Languages
+                  if (data.languages && data.languages.length > 0) {
+                      html += '<div class="bg-gray-700/50 rounded-lg p-6 mb-4">';
+                      html += '<h3 class="text-xl font-semibold text-blue-300 mb-4">🌐 Languages</h3>';
+                      html += formatArray(data.languages);
+                      html += '</div>';
+                  }
+
+                  // Publications
+                  if (data.publications && data.publications.length > 0) {
+                      html += '<div class="bg-gray-700/50 rounded-lg p-6 mb-4">';
+                      html += '<h3 class="text-xl font-semibold text-blue-300 mb-4">📚 Publications</h3>';
+                      html += formatArray(data.publications);
+                      html += '</div>';
+                  }
+
+                  html += '</div>';
+                  container.innerHTML = html;
+              }
+
+              function formatKey(key) {
+                  return key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+              }
+
+              function formatValue(value) {
+                  if (Array.isArray(value)) {
+                      return value.join(', ');
+                  } else if (typeof value === 'object' && value !== null) {
+                      var result = '';
+                      for (var k in value) {
+                          result += formatKey(k) + ': ' + value[k] + '; ';
+                      }
+                      return result;
+                  }
+                  return value;
+              }
+
+              function formatArray(arr) {
+                  var html = '<div class="space-y-4">';
+                  arr.forEach(function(item, index) {
+                      html += '<div class="bg-gray-800/50 rounded p-4 border-l-4 border-blue-500">';
+                      if (typeof item === 'object') {
+                          for (var key in item) {
+                              if (item[key]) {
+                                  if (Array.isArray(item[key])) {
+                                      html += '<p class="mb-2"><span class="text-gray-400">' + formatKey(key) + ':</span></p>';
+                                      html += '<ul class="list-disc list-inside ml-4 text-gray-200">';
+                                      item[key].forEach(function(listItem) {
+                                          html += '<li>' + listItem + '</li>';
+                                      });
+                                      html += '</ul>';
+                                  } else {
+                                      html += '<p class="mb-2"><span class="text-gray-400">' + formatKey(key) + ':</span> <span class="text-white">' + item[key] + '</span></p>';
+                                  }
+                              }
+                          }
+                      } else {
+                          html += '<p class="text-white">' + item + '</p>';
+                      }
+                      html += '</div>';
+                  });
+                  html += '</div>';
+                  return html;
+              }
+
+              displayDictionaryValues({{ data| tojson }});
+            </script>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
