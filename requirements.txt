@@ -3,6 +3,7 @@ Flask==3.0.2
 pypdf==4.1.0
 openai==2.7.2
 PyYAML==6.0.1
+gunicorn==21.2.0
 
 # Optional: Recommended security enhancements
 # Uncomment to enable these features:

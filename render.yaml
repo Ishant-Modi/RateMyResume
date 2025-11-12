@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: ratemyresume
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false
+      - key: FLASK_DEBUG
+        value: False
+      - key: PYTHON_VERSION
+        value: 3.12.0
